@@ -50,4 +50,11 @@ function __construct() {
       	echo "Could not Delete";
       }
 	}
+public function dynamicsave()
+	{
+		$post = $this->input->post();
+	
+		$res = $this->Login_model->savedynamic($post);
+	}	
+	
 }
