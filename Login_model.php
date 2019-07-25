@@ -62,5 +62,17 @@ class Login_model extends CI_Model{
     return 2;
    }
    }
-
+ public function savedynamic($data = array())
+   {
+    $count = count($data['name']);
+    for($i=0;$i<$count;$i++)
+    {
+         $details['dynamic']['name'] = $data['name'][$i];
+         $details['dynamic']['addr1'] = $data['addr1'][$i];
+         $details['dynamic']['addr2'] = $data['addr2'][$i];
+         $details['dynamic']['email'] = $data['email'][$i];
+         $details['dynamic']['contact'] = $data['contact'][$i];
+         $this->db->insert('extradetails',$details['dynamic']);
+    }
+   }
 }
