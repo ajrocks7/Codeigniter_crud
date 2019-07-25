@@ -1,0 +1,53 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Login extends CI_Controller {
+function __construct() {
+        parent::__construct();
+        $this->load->database();
+        $this->load->model("Login_model");
+        $this->load->library('session');
+       // $this->load->library('email');
+    }
+
+	public function index()
+	{
+		$data = array();
+		$data['details'] = $this->Login_model->viewdetails();
+		$this->load->view('login/view',$data);
+	}
+
+	public function addnew()
+	{
+		$this->load->view('login/sample');
+	}
+
+	public function submit()
+	{
+		parse_str($_POST['values'], $searcharray);
+		$data = $this->Login_model->insertdata($searcharray);
+		if($data)
+		{
+			redirect("Login");
+		}else{
+			echo"Error Occured";
+		}
+	}
+
+	public function editform($id)
+	{
+		$data['details']  = $this->Login_model->editdata($id);
+		$this->load->view('login/sample',$data);
+	}
+
+	public function delete($id)
+	{
+      $res = $this->Login_model->delete($id);
+      if($res == 1)
+      {
+      	redirect('Login/index');
+      }else{
+      	echo "Could not Delete";
+      }
+	}
+}
